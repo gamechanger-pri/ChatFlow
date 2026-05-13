@@ -19,50 +19,67 @@ const ProfileModal = ({ user, children }) => {
 
   return (
     <>
+      {/* Trigger */}
       {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
-        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+        <IconButton
+          display={{ base: "flex" }}
+          icon={<ViewIcon />}
+          onClick={onOpen}
+          aria-label="View Profile"
+        />
       )}
+
+      {/* Modal */}
       <Modal
-        fontFamily="poppins"
         size="lg"
         onClose={onClose}
         isOpen={isOpen}
         isCentered
       >
         <ModalOverlay />
-        <ModalContent h="410px">
+
+        <ModalContent>
           <ModalHeader
             fontSize="40px"
             fontFamily="Work sans"
             display="flex"
             justifyContent="center"
           >
-            {user.name}
+            {user?.name || "User"}
           </ModalHeader>
+
           <ModalCloseButton />
+
           <ModalBody
             display="flex"
             flexDir="column"
             alignItems="center"
             justifyContent="space-between"
+            gap={4}
           >
+            {/* Profile Image */}
             <Image
               borderRadius="full"
               boxSize="150px"
-              src={user.pic}
-              alt={user.name}
+              src={user?.pic || "https://via.placeholder.com/150"}
+              alt={user?.name || "Profile"}
             />
+
+            {/* Email */}
             <Text
-              fontSize={{ base: "28px", md: "30px" }}
+              fontSize={{ base: "20px", md: "24px" }}
               fontFamily="Work sans"
             >
-              Email: {user.email}
+              Email: {user?.email || "Not available"}
             </Text>
           </ModalBody>
+
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button onClick={onClose} colorScheme="blue">
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
